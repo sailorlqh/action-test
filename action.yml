@@ -1,28 +1,16 @@
-name: 'Hackathon Action'
+name: 'example action'
 
 runs:
   using: 'composite'
   steps:
-    - name: get tag
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      shell: 'bash'
-    - name: echo tag
-      run: echo ${{ env.RELEASE_VERSION }}
-      shell: 'bash'
     - name: step vars
       shell: 'bash'
       env:
         os: ${{ runner.os }}
         arch: ${{runner.arch}}
-        version: ${{github.ref_name}}
-        version1: ${{github.ref}}
         # manully update default_version after each release
-        default_version: "v1.0.0"
+        version: "v1.0.0"
       run: |-
-        echo ${os}
-        echo ${arch}
-        echo ${version}
-        echo ${version1}
         case "${os}" in
           "Linux")
             CURL_OS="linux"
@@ -41,16 +29,7 @@ runs:
           ;;
         esac
 
-        case "{version}" in
-          "main")
-            CURL_VERSION=${default_version}
-          ;;
-          *)
-            CURL_VERSION=${version}
-          ;;
-        esac
-
-        echo curl -LOv notifier_${CURL_VERSION}_${CURL_OS}_${CURL_ARCH}.tar.gz
+        echo curl -LOv notifier_${version}_${CURL_OS}_${CURL_ARCH}.tar.gz
     
     # - name: 'download binary'
     #   shell: 'bash'

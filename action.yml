@@ -9,12 +9,14 @@ runs:
         os: ${{ runner.os }}
         arch: ${{runner.arch}}
         version: ${{github.ref_name}}
+        version1: ${{github.ref}}
         # manully update default_version after each release
         default_version: "v1.0.0"
       run: |-
         echo ${os}
         echo ${arch}
         echo ${version}
+        echo ${version1}
         case "${os}" in
           "Linux")
             CURL_OS="linux"
@@ -24,8 +26,8 @@ runs:
           ;;
         esac
 
-        case "{arch}" in
-          "X64" | "x64")
+        case "${arch}" in
+          "X64")
             CURL_ARCH="amd64"
           ;;
           "arm64")

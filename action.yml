@@ -2,45 +2,45 @@ name: 'Hackathon Action'
 
 runs:
   using: 'composite'
-    steps:
-      - name: step vars
-        shell: 'bash'
-        env:
-          os: ${{ runner.os }}
-          arch: ${{runner.arch}}
-          version: ${{github.ref_name}}
-          # manully update default_version after each release
-          default_version: "v1.0.0"
-        run: |-
-          echo ${os}
-          echo ${version}
-          echo ${version1}
-          case "${os}" in
-            "Linux")
-              CURL_OS="linux"
-            ;;
-            "macOS")
-              CURL_OS="darwin"
-            ;;
-          esac
+  steps:
+    - name: step vars
+      shell: 'bash'
+      env:
+        os: ${{ runner.os }}
+        arch: ${{runner.arch}}
+        version: ${{github.ref_name}}
+        # manully update default_version after each release
+        default_version: "v1.0.0"
+      run: |-
+        echo ${os}
+        echo ${version}
+        echo ${version1}
+        case "${os}" in
+          "Linux")
+            CURL_OS="linux"
+          ;;
+          "macOS")
+            CURL_OS="darwin"
+          ;;
+        esac
 
-          case "{arch}" in
-            "X64")
-              CURL_ARCH="amd64"
-            ;;
-            "arm64")
-              CURL_OS="arm64"
-            ;;
-          esac
+        case "{arch}" in
+          "X64")
+            CURL_ARCH="amd64"
+          ;;
+          "arm64")
+            CURL_OS="arm64"
+          ;;
+        esac
 
-          case "{version}" in
-            "main")
-              CURL_VERSION={default_version}
-            ;;
-            *)
-              CURL_VERSION={version}
+        case "{version}" in
+          "main")
+            CURL_VERSION={default_version}
+          ;;
+          *)
+            CURL_VERSION={version}
 
-          echo curl -LOv "notifier_${CURL_VERSION}_${CURL_OS}_${CURL_ARCH}.tar.gz"
+        echo curl -LOv "notifier_${CURL_VERSION}_${CURL_OS}_${CURL_ARCH}.tar.gz"
     
     # - name: 'download binary'
     #   shell: 'bash'

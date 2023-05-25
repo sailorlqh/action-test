@@ -14,7 +14,6 @@ runs:
       run: |-
         echo ${os}
         echo ${version}
-        echo ${version1}
         case "${os}" in
           "Linux")
             CURL_OS="linux"
@@ -29,7 +28,7 @@ runs:
             CURL_ARCH="amd64"
           ;;
           "arm64")
-            CURL_OS="arm64"
+            CURL_ARCH="arm64"
           ;;
         esac
 
@@ -38,7 +37,7 @@ runs:
             CURL_VERSION={default_version}
           ;;
           *)
-            CURL_VERSION={version}
+            CURL_VERSION=${version}
           ;;
         esac
 

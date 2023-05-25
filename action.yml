@@ -41,7 +41,7 @@ runs:
             CURL_VERSION={version}
           ;;
 
-        echo curl -LOv "notifier_${CURL_VERSION}_${CURL_OS}_${CURL_ARCH}.tar.gz"
+        echo curl -LOv notifier_${CURL_VERSION}_${CURL_OS}_${CURL_ARCH}.tar.gz
     
     # - name: 'download binary'
     #   shell: 'bash'

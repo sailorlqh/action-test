@@ -34,7 +34,7 @@ runs:
 
         case "{version}" in
           "main")
-            CURL_VERSION={default_version}
+            CURL_VERSION=${default_version}
           ;;
           *)
             CURL_VERSION=${version}

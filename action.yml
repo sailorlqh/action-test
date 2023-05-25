@@ -1,0 +1,60 @@
+name: 'Hackathon Action'
+
+runs:
+  using: 'composite'
+    steps:
+      - name: step vars
+        shell: 'bash'
+        env:
+          os: ${{ runner.os }}
+          arch: ${{runner.arch}}
+          version: ${{github.ref_name}}
+          # manully update default_version after each release
+          default_version: "v1.0.0"
+        run: |-
+          echo ${os}
+          echo ${version}
+          echo ${version1}
+          case "${os}" in
+            "Linux")
+              CURL_OS="linux"
+            ;;
+            "macOS")
+              CURL_OS="darwin"
+            ;;
+          esac
+
+          case "{arch}" in
+            "X64")
+              CURL_ARCH="amd64"
+            ;;
+            "arm64")
+              CURL_OS="arm64"
+            ;;
+          esac
+
+          case "{version}" in
+            "main")
+              CURL_VERSION={default_version}
+            ;;
+            *)
+              CURL_VERSION={version}
+
+          echo curl -LOv "notifier_${CURL_VERSION}_${CURL_OS}_${CURL_ARCH}.tar.gz"
+    
+    # - name: 'download binary'
+    #   shell: 'bash'
+    #   run: |-
+    #     curl -LOv "https://github.com/drevell/hackathon/releases/download/v0.0.12/hackathon_0.0.12_linux_amd64.tar.gz"
+    #     tar xzf hackathon_0.0.12_linux_amd64.tar.gz
+    # - name: "send message via cli"
+    #   shell: 'bash'
+    #   run: |
+    #     ./hackathon chat workflownotification --webhook_url="${{ inputs.webhook_url }}"
+    #   env:
+    #     GITHUB_CONTEXT: ${{ toJson(github) }}
+    #     JOB_CONTEXT: ${{ toJson(job) }}
+    #     STEPS_CONTEXT: ${{ toJson(steps) }}
+    #     RUNNER_CONTEXT: ${{ toJson(runner) }}
+    #     STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+    #     MATRIX_CONTEXT: ${{ toJson(matrix) }}
